@@ -18,6 +18,9 @@ public:
     void edit(const std::string& brand, int year, int mileage);
     void display() const;
     const std::string& getBrand() const;
+    int getYear() const;
+    int getMileage() const;
+
 };
 
 #endif

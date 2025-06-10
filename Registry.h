@@ -20,6 +20,10 @@ public:
     void deleteCar(int index);
     void editCar(int index, const std::string& brand, int year, int mileage);
     void displayAll() const;
+    void searchByBrand(const std::string& brand) const;
+    void searchByYear(int year) const;
+    void searchByMaxMileage(int maxMileage) const;
+
 };
 
 #endif

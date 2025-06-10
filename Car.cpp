@@ -22,3 +22,12 @@ void Car::display() const {
 const std::string& Car::getBrand() const {
     return brand;
 }
+
+int Car::getYear() const {
+    return year;
+}
+
+int Car::getMileage() const {
+    return mileage;
+}
+

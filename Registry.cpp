@@ -66,3 +66,39 @@ void Registry::displayAll() const {
         cars[i]->display();
     }
 }
+
+void Registry::searchByBrand(const std::string& brand) const {
+    bool found = false;
+    for (int i = 0; i < size; ++i) {
+        if (cars[i]->getBrand() == brand) {
+            std::cout << i << ". ";
+            cars[i]->display();
+            found = true;
+        }
+    }
+    if (!found) std::cout << "Brak samochodow o podanej marce.\n";
+}
+
+void Registry::searchByYear(int year) const {
+    bool found = false;
+    for (int i = 0; i < size; ++i) {
+        if (cars[i]->getYear() == year) {
+            std::cout << i << ". ";
+            cars[i]->display();
+            found = true;
+        }
+    }
+    if (!found) std::cout << "Brak samochodow z podanego rocznika.\n";
+}
+
+void Registry::searchByMaxMileage(int maxMileage) const {
+    bool found = false;
+    for (int i = 0; i < size; ++i) {
+        if (cars[i]->getMileage() <= maxMileage) {
+            std::cout << i << ". ";
+            cars[i]->display();
+            found = true;
+        }
+    }
+    if (!found) std::cout << "Brak samochodow o przebiegu rownym badz mniejszym niz " << maxMileage << "km.\n";
+}

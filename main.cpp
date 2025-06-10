@@ -12,6 +12,7 @@ int main() {
         std::cout << "3. Edytuj auto\n";
         std::cout << "4. Wyswietl wszystkie auta\n";
         std::cout << "5. Wyjscie\n";
+        std::cout << "6. Wyszukaj auto\n";
         std::cout << "Wybor: ";
         std::cin >> choice;
 
@@ -56,6 +57,41 @@ int main() {
             case 5:
                 std::cout << "Zamykanie programu...\n";
                 return 0;
+            case 6: {
+                int searchChoice;
+                std::cout << "Wyszukaj po:\n";
+                std::cout << "1. Marka\n";
+                std::cout << "2. Rocznik\n";
+                std::cout << "3. Maksymalny przebieg\n";
+                std::cout << "Wybor: ";
+                std::cin >> searchChoice;
+                switch (searchChoice) {
+                    case 1: {
+                        std::string brand;
+                        std::cout << "Podaj marke: ";
+                        std::cin >> brand;
+                        registry.searchByBrand(brand);
+                        break;
+                    }
+                    case 2: {
+                        int year;
+                        std::cout << "Podaj rocznik: ";
+                        std::cin >> year;
+                        registry.searchByYear(year);
+                        break;
+                    }
+                    case 3: {
+                        int maxMileage;
+                        std::cout << "Podaj maksymalny przebieg: ";
+                        std::cin >> maxMileage;
+                        registry.searchByMaxMileage(maxMileage);
+                        break;
+                    }
+                    default:
+                        std::cout << "Nieprawidlowy wybor!\n";
+                }
+                break;
+            }
             default:
                 std::cout << "Nieprawidlowy wybor!\n";
         }
