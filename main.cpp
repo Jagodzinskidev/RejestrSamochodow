@@ -18,15 +18,17 @@ int main() {
 
         switch (choice) {
             case 1: {
-                std::string brand;
+                std::string brand, model;
                 int year, mileage;
                 std::cout << "Marka: ";
                 std::cin >> brand;
+                std::cout << "Model: ";
+                std::cin >> model;
                 std::cout << "Rok zakupu: ";
                 std::cin >> year;
-                std::cout << "Przebieg [km]: ";
+                std::cout << "Przebieg: ";
                 std::cin >> mileage;
-                registry.addCar(brand, year, mileage);
+                registry.addCar(brand, model, year, mileage);
                 break;
             }
             case 2: {
@@ -38,17 +40,19 @@ int main() {
             }
             case 3: {
                 int index;
-                std::string brand;
+                std::string brand, model;
                 int year, mileage;
                 std::cout << "Indeks auta do edycji: ";
                 std::cin >> index;
                 std::cout << "Nowa marka: ";
                 std::cin >> brand;
+                std::cout << "Nowy model: ";
+                std::cin >> model;
                 std::cout << "Nowy rok zakupu: ";
                 std::cin >> year;
                 std::cout << "Nowy przebieg: ";
                 std::cin >> mileage;
-                registry.editCar(index, brand, year, mileage);
+                registry.editCar(index, brand, model, year, mileage);
                 break;
             }
             case 4:
@@ -61,8 +65,9 @@ int main() {
                 int searchChoice;
                 std::cout << "Wyszukaj po:\n";
                 std::cout << "1. Marka\n";
-                std::cout << "2. Rocznik\n";
-                std::cout << "3. Maksymalny przebieg\n";
+                std::cout << "2. Model\n";
+                std::cout << "3. Rocznik\n";
+                std::cout << "4. Maksymalny przebieg\n";
                 std::cout << "Wybor: ";
                 std::cin >> searchChoice;
                 switch (searchChoice) {
@@ -74,13 +79,20 @@ int main() {
                         break;
                     }
                     case 2: {
+                        std::string model;
+                        std::cout << "Podaj model: ";
+                        std::cin >> model;
+                        registry.searchByModel(model);
+                        break;
+                    }
+                    case 3: {
                         int year;
                         std::cout << "Podaj rocznik: ";
                         std::cin >> year;
                         registry.searchByYear(year);
                         break;
                     }
-                    case 3: {
+                    case 4: {
                         int maxMileage;
                         std::cout << "Podaj maksymalny przebieg: ";
                         std::cin >> maxMileage;
@@ -96,6 +108,5 @@ int main() {
                 std::cout << "Nieprawidlowy wybor!\n";
         }
     }
-
     return 0;
 }

@@ -17,14 +17,14 @@ Registry::~Registry() {
     free(cars);
 }
 
-void Registry::addCar(const std::string& brand, int year, int mileage) {
+void Registry::addCar(const std::string& brand, const std::string& model, int year, int mileage) {
     Car** newCars = (Car**)realloc(cars, (size + 1) * sizeof(Car*));
     if (newCars == nullptr) {
         std::cerr << "Blad alokacji pamieci!\n";
         return;
     }
     cars = newCars;
-    cars[size] = new Car(brand, year, mileage);
+    cars[size] = new Car(brand, model, year, mileage);
     ++size;
 }
 
@@ -47,12 +47,12 @@ void Registry::deleteCar(int index) {
     }
 }
 
-void Registry::editCar(int index, const std::string& brand, int year, int mileage) {
+void Registry::editCar(int index, const std::string& brand, const std::string& model, int year, int mileage) {
     if (index < 0 || index >= size) {
         std::cout << "Nieprawidlowy indeks!\n";
         return;
     }
-    cars[index]->edit(brand, year, mileage);
+    cars[index]->edit(brand, model, year, mileage);
 }
 
 void Registry::displayAll() const {
@@ -76,8 +76,23 @@ void Registry::searchByBrand(const std::string& brand) const {
             found = true;
         }
     }
-    if (!found) std::cout << "Brak samochodow o podanej marce.\n";
+    if (!found) {
+        std::cout << "Brak samochodow o podanej marce.\n";
+    }
 }
+
+void Registry::searchByModel(const std::string& model) const {
+    bool found = false;
+    for (int i = 0; i < size; ++i) {
+        if (cars[i]->getModel() == model) {
+            std::cout << i << ". ";
+            cars[i]->display();
+            found = true;
+        }
+    }
+    if (!found) std::cout << "Brak samochodow o podanym modelu.\n";
+}
+
 
 void Registry::searchByYear(int year) const {
     bool found = false;
@@ -88,7 +103,9 @@ void Registry::searchByYear(int year) const {
             found = true;
         }
     }
-    if (!found) std::cout << "Brak samochodow z podanego rocznika.\n";
+    if (!found) {
+        std::cout << "Brak samochodow z podanego rocznika.\n";
+    }
 }
 
 void Registry::searchByMaxMileage(int maxMileage) const {
@@ -100,5 +117,7 @@ void Registry::searchByMaxMileage(int maxMileage) const {
             found = true;
         }
     }
-    if (!found) std::cout << "Brak samochodow o przebiegu rownym badz mniejszym niz " << maxMileage << "km.\n";
+    if (!found) {
+        std::cout << "Brak samochodow o przebiegu rownym badz mniejszym niz " << maxMileage << "km.\n";
+    }
 }
