@@ -13,6 +13,8 @@ int main() {
         std::cout << "4. Wyswietl wszystkie auta\n";
         std::cout << "5. Wyjscie\n";
         std::cout << "6. Wyszukaj auto\n";
+        std::cout << "7. Zapisz rejestr do pliku\n";
+        std::cout << "8. Wczytaj rejestr z pliku\n";
         std::cout << "Wybor: ";
         std::cin >> choice;
 
@@ -102,6 +104,20 @@ int main() {
                     default:
                         std::cout << "Nieprawidlowy wybor!\n";
                 }
+                break;
+            }
+            case 7: {
+                char filename[100];
+                std::cout << "Podaj nazwe pliku do zapisu: ";
+                std::cin >> filename;
+                registry.saveToFile(filename);
+                break;
+            }
+            case 8: {
+                char filename[100];
+                std::cout << "Podaj nazwe pliku do odczytu: ";
+                std::cin >> filename;
+                registry.loadFromFile(filename);
                 break;
             }
             default:

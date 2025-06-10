@@ -25,6 +25,8 @@ public:
     void searchByYear(int year) const;
     void searchByMaxMileage(int maxMileage) const;
 
+    void saveToFile(const char* filename) const;
+    void loadFromFile(const char* filename);
 };
 
 #endif
