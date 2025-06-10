@@ -3,7 +3,8 @@
 //
 #include "Registry.h"
 #include <iostream>
-#include <cstdlib> // malloc, free, realloc
+#include <cstdlib>
+#include <cstdio>
 
 Registry::Registry() {
     cars = nullptr;
@@ -120,4 +121,56 @@ void Registry::searchByMaxMileage(int maxMileage) const {
     if (!found) {
         std::cout << "Brak samochodow o przebiegu rownym badz mniejszym niz " << maxMileage << "km.\n";
     }
+}
+
+void Registry::saveToFile(const char* filename) const {
+    FILE* file = fopen(filename, "w");
+    if (!file) {
+        std::cout << "Nie mozna otworzyc pliku do zapisu!\n";
+        return;
+    }
+    fprintf(file, "%d\n", size);
+    for (int i = 0; i < size; ++i) {
+        // Marka i model bez spacji!
+        fprintf(file, "%s %s %d %d\n",
+                cars[i]->getBrand().c_str(),
+                cars[i]->getModel().c_str(),
+                cars[i]->getYear(),
+                cars[i]->getMileage());
+    }
+    fclose(file);
+    std::cout << "Rejestr zapisany do pliku " << filename << "\n";
+}
+
+void Registry::loadFromFile(const char* filename) {
+    FILE* file = fopen(filename, "r");
+    if (!file) {
+        std::cout << "Nie mozna otworzyc pliku do odczytu!\n";
+        return;
+    }
+    // Usuń stare dane
+    for (int i = 0; i < size; ++i) {
+        delete cars[i];
+    }
+    free(cars);
+    cars = nullptr;
+    size = 0;
+
+    int newSize;
+    if (fscanf(file, "%d\n", &newSize) != 1) {
+        std::cout << "Blad odczytu rozmiaru rejestru!\n";
+        fclose(file);
+        return;
+    }
+    for (int i = 0; i < newSize; ++i) {
+        char brand[100], model[100];
+        int year, mileage;
+        if (fscanf(file, "%99s %99s %d %d\n", brand, model, &year, &mileage) == 4) {
+            addCar(std::string(brand), std::string(model), year, mileage);
+        } else {
+            std::cout << "Blad odczytu danych samochodu!\n";
+        }
+    }
+    fclose(file);
+    std::cout << "Rejestr wczytany z pliku " << filename << "\n";
 }
