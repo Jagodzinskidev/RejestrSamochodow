@@ -131,7 +131,6 @@ void Registry::saveToFile(const char* filename) const {
     }
     fprintf(file, "%d\n", size);
     for (int i = 0; i < size; ++i) {
-        // Marka i model bez spacji!
         fprintf(file, "%s %s %d %d\n",
                 cars[i]->getBrand().c_str(),
                 cars[i]->getModel().c_str(),
@@ -148,7 +147,6 @@ void Registry::loadFromFile(const char* filename) {
         std::cout << "Nie mozna otworzyc pliku do odczytu!\n";
         return;
     }
-    // Usuń stare dane
     for (int i = 0; i < size; ++i) {
         delete cars[i];
     }
